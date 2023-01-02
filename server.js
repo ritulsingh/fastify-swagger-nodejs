@@ -20,11 +20,10 @@ fastify.register(require('@fastify/swagger'), {
         produces: ["application/json"]
     }
 })
+
 fastify.register(require('@fastify/swagger-ui'));
 
-fastify.register(require("./routes/items"), {
-    prefix: "items",
-})
+fastify.register(require("./routes/items"))
 
 fastify.listen(PORT, (err) => {
     if (err) {

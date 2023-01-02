@@ -1,4 +1,4 @@
-const { getItems, getItem, postItem } = require('../controllers/items')
+const { getItems, getItem, addItem, deleteItem, updateItem } = require('../controllers/items')
 
 // item schema
 const item = {
@@ -25,6 +25,14 @@ const getItemsOpts = {
 // Options for getting of single item
 const getItemOpts = {
     schema: {
+        parameters: {
+            type: 'object',
+            required: ['id'],
+            // description: "ID of the item",
+            properties: {
+                id: { type: 'string' }
+            }
+        },
         response: {
             200: item
         }
@@ -33,12 +41,42 @@ const getItemOpts = {
 }
 
 const postItemOpts = {
-    schema:{
-        response:{
-            200: item
+    schema: {
+        body: {
+            type: 'object',
+            required: ['name'],
+            properties: {
+                name: { type: 'string' }
+            }
+        },
+        response: {
+            201: item
         },
     },
-    handler: postItem
+    handler: addItem
+}
+
+const deleteItemOpts = {
+    schema: {
+        response: {
+            200: {
+                type: 'object',
+                properties: {
+                    message: { type: 'string' }
+                },
+            },
+        },
+    },
+    handler: deleteItem,
+}
+
+const updateItemOpts = {
+    schema: {
+        response: {
+            200: item
+        }
+    },
+    handler: updateItem
 }
 
 function itemRoutes(fastify, options, done) {
@@ -48,8 +86,15 @@ function itemRoutes(fastify, options, done) {
     // Get single item
     fastify.get('/items/:id', getItemOpts)
 
-    
+    // Add single item
     fastify.post('/items', postItemOpts)
+
+    // Delete single item
+    fastify.delete('/items/:id', deleteItemOpts)
+
+    // Update single item
+    fastify.put('/items/:id', updateItemOpts)
+
     done()
 }
 
