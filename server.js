@@ -8,9 +8,19 @@ fastify.register(require('@fastify/swagger'), {
     swagger: {
         info: {
             title: "Fastify-Api Documentation",
-            description: "Campaign Builder using Omnichannel Communication API",
-            version: "0.1.0"
+            description: "Implementing the concept of API documentation using Fastify, Swagger, and Node.js",
+            version: "1.1.0"
         },
+        tags: [
+            {
+                name: 'items',
+                description: 'Operations related to items'
+            },
+            {
+                name: 'products',
+                description: 'Operations related to products'
+            }
+        ],
         externalDocs: {
             url: 'https://swagger.io',
             description: 'Find more info here'

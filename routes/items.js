@@ -12,12 +12,26 @@ const item = {
 // Options for getting of all items
 const getItemsOpts = {
     schema: {
+        summary: 'Get all items',
         response: {
             200: {
                 type: 'array',
                 items: item
             },
+            404: {
+                type: 'object',
+                properties: {
+                    error: { type: 'string' }
+                }
+            },
+            500: {
+                type: 'object',
+                properties: {
+                    error: { type: 'string' }
+                }
+            }
         },
+        tags: ['items'],
     },
     handler: getItems
 }
@@ -25,17 +39,33 @@ const getItemsOpts = {
 // Options for getting of single item
 const getItemOpts = {
     schema: {
-        parameters: {
+        summary: 'Getting single item using id',
+        params: {
             type: 'object',
-            required: ['id'],
-            // description: "ID of the item",
             properties: {
-                id: { type: 'string' }
-            }
+                id: {
+                    type: 'string',
+                    description: 'The ID of the Item to retrieve'
+                },
+            },
+            required: ['id']
         },
         response: {
-            200: item
-        }
+            200: item,
+            404: {
+                type: 'object',
+                properties: {
+                    error: { type: 'string' }
+                }
+            },
+            500: {
+                type: 'object',
+                properties: {
+                    error: { type: 'string' }
+                }
+            }
+        },
+        tags: ['items'],
     },
     handler: getItem
 }
@@ -43,16 +73,33 @@ const getItemOpts = {
 // Options for adding single item
 const postItemOpts = {
     schema: {
+        summary: 'Update a single item using the specified',
         body: {
             type: 'object',
             required: ['name'],
             properties: {
-                name: { type: 'string' }
+                name: {
+                    type: 'string',
+                    description: 'Enter the name of the item to add'
+                }
             }
         },
         response: {
-            201: item
+            201: item,
+            404: {
+                type: 'object',
+                properties: {
+                    error: { type: 'string' }
+                }
+            },
+            500: {
+                type: 'object',
+                properties: {
+                    error: { type: 'string' }
+                }
+            }
         },
+        tags: ['items'],
     },
     handler: addItem
 }
@@ -60,6 +107,17 @@ const postItemOpts = {
 // Options for deleting a single item
 const deleteItemOpts = {
     schema: {
+        summary: 'Delete a single item using id',
+        params: {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'string',
+                    description: 'The ID of the Item to delete',
+                },
+            },
+            required: ['id']
+        },
         response: {
             200: {
                 type: 'object',
@@ -67,7 +125,20 @@ const deleteItemOpts = {
                     message: { type: 'string' }
                 },
             },
+            404: {
+                type: 'object',
+                properties: {
+                    error: { type: 'string' }
+                }
+            },
+            500: {
+                type: 'object',
+                properties: {
+                    error: { type: 'string' }
+                }
+            }
         },
+        tags: ['items'],
     },
     handler: deleteItem,
 }
@@ -75,9 +146,33 @@ const deleteItemOpts = {
 // Options for updating a single item
 const updateItemOpts = {
     schema: {
+        summary: 'For the update of a single item using id',
+        params: {
+            type: 'object',
+            properties: {
+                id: { 
+                    type: 'string',
+                    description: 'The ID of the Item to update'
+                },
+            },
+            required: ['id']
+        },
         response: {
-            200: item
-        }
+            200: item,
+            404: {
+                type: 'object',
+                properties: {
+                    error: { type: 'string' }
+                }
+            },
+            500: {
+                type: 'object',
+                properties: {
+                    error: { type: 'string' }
+                }
+            }
+        },
+        tags: ['items'],
     },
     handler: updateItem
 }
