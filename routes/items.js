@@ -40,6 +40,7 @@ const getItemOpts = {
     handler: getItem
 }
 
+// Options for adding single item
 const postItemOpts = {
     schema: {
         body: {
@@ -56,6 +57,7 @@ const postItemOpts = {
     handler: addItem
 }
 
+// Options for deleting a single item
 const deleteItemOpts = {
     schema: {
         response: {
@@ -70,6 +72,7 @@ const deleteItemOpts = {
     handler: deleteItem,
 }
 
+// Options for updating a single item
 const updateItemOpts = {
     schema: {
         response: {
