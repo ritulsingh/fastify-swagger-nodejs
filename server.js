@@ -15,10 +15,6 @@ fastify.register(require('@fastify/swagger'), {
             {
                 name: 'items',
                 description: 'Operations related to items'
-            },
-            {
-                name: 'products',
-                description: 'Operations related to products'
             }
         ],
         externalDocs: {
