@@ -1,31 +1,10 @@
 const fastify = require("fastify")({ logger: true })
-
+const mongoose = require("mongoose");
+const connection = require("./dbConnection")
+const swagger = require("./swagger")
 const PORT = 5000
 
-fastify.register(require('@fastify/swagger'), {
-    exposeRoute: true,
-    swagger: {
-        info: {
-            title: "Fastify-Api Documentation",
-            description: "Implementing the concept of API documentation using Fastify, Swagger, and Node.js",
-            version: "1.1.0"
-        },
-        tags: [
-            {
-                name: 'items',
-                description: 'Operations related to items'
-            }
-        ],
-        externalDocs: {
-            url: 'https://swagger.io',
-            description: 'Find more info here'
-        },
-        schemes: ["http", "https"],
-        consumes: ["application/json"],
-        produces: ["application/json"]
-    }
-})
-
+fastify.register(require('@fastify/swagger'), swagger)
 fastify.register(require('@fastify/swagger-ui'));
 
 fastify.register(require("./routes/items"))
