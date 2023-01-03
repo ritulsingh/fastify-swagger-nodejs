@@ -6,6 +6,8 @@ const item = {
     properties: {
         id: { type: 'string' },
         name: { type: 'string' },
+        date: { type: 'string' },
+        mobileNumber: { type: 'string' }
     },
 }
 
@@ -51,7 +53,10 @@ const getItemOpts = {
             required: ['id']
         },
         response: {
-            200: item,
+            200: {
+                type: 'array',
+                items: item
+            },
             404: {
                 type: 'object',
                 properties: {
@@ -76,11 +81,15 @@ const postItemOpts = {
         summary: 'Update a single item using the specified',
         body: {
             type: 'object',
-            required: ['name'],
+            required: ['name', 'mobileNumber'],
             properties: {
                 name: {
                     type: 'string',
                     description: 'Enter the name of the item to add'
+                },
+                mobileNumber: {
+                    type: 'string',
+                    description: 'Enter the mobile number of the item to add'
                 }
             }
         },
@@ -147,6 +156,20 @@ const deleteItemOpts = {
 const updateItemOpts = {
     schema: {
         summary: 'For the update of a single item using id',
+        body: {
+            type: 'object',
+            required: ['name', 'mobileNumber'],
+            properties: {
+                name: {
+                    type: 'string',
+                    description: 'Enter the name of the item to add'
+                },
+                mobileNumber: {
+                    type: 'string',
+                    description: 'Enter the mobile number of the item to add'
+                }
+            }
+        },
         params: {
             type: 'object',
             properties: {
